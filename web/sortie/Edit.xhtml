@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SortieEditDlg" widgetVar="SortieEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSortieTitle}">
+            <h:form id="SortieEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{sortieController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSortieLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{sortieController.selected.id}" title="#{bundle.EditSortieTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditSortieLabel_dateSortie}" for="dateSortie" />
+                        <p:calendar id="dateSortie" pattern="MM/dd/yyyy" value="#{sortieController.selected.dateSortie}" title="#{bundle.EditSortieTitle_dateSortie}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSortieLabel_recepteur}" for="recepteur" />
+                        <p:selectOneMenu id="recepteur" value="#{sortieController.selected.recepteur}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{recepteurController.itemsAvailableSelectOne}"
+                                           var="recepteurItem"
+                                           itemValue="#{recepteurItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sortieController.update}" value="#{bundle.Save}" update="display,:SortieListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SortieEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SortieEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

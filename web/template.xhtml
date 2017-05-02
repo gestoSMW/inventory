@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="primefaces" name="grid/grid.css" />
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <ui:insert name="form"/>
+        </h:form>
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true">
+
+
+            <p:layoutUnit position="west" header="pages" size="170" resizable="false" collapsible="true">
+                <p:menu>
+                    <p:submenu label="navigation">
+                        <p:menuitem outcome="/commandeItem/List" value="CommandeItem"/>
+
+                        <p:menuitem outcome="/fournisseur/List" value="Fournisseur"/>
+
+                        <p:menuitem outcome="/inventaire/List" value="Inventaire"/>
+
+                        <p:menuitem outcome="/inventaireItem/List" value="InventaireItem"/>
+
+                        <p:menuitem outcome="/livraison/List" value="Livraison"/>
+
+                        <p:menuitem outcome="/livraisonItem/List" value="LivraisonItem"/>
+
+                        <p:menuitem outcome="/magasin/List" value="Magasin"/>
+
+                        <p:menuitem outcome="/produit/List" value="Produit"/>
+
+                        <p:menuitem outcome="/recepteur/List" value="Recepteur"/>
+
+                        <p:menuitem outcome="/sortie/List" value="Sortie"/>
+
+                        <p:menuitem outcome="/sortieItem/List" value="SortieItem"/>
+
+                        <p:menuitem outcome="/stock/List" value="Stock"/>
+                    </p:submenu>
+                </p:menu>
+                <p:menu>
+                    <p:submenu label="account">
+                        <p:menuitem value="log out" url="/produit/List.xhtml" />
+                    </p:submenu>
+                </p:menu>
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="60" closable="true" collapsible="true">
+                <ui:insert name="footer"/>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+
+</html>

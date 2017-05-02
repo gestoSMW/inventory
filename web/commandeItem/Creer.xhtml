@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel>
+            <h:form id="CommandeForm">
+                <h3><h:outputText value="Create Commande"/></h3>
+                <p:panelGrid columns="4">
+                    <p:outputLabel value="Date" for="dateCommande" />
+                    <p:calendar id="dateCommande"  pattern="dd/MM/yyyy" value="#{commandeItemController.selectedCommande.dateCommande}" showOn="button"/>
+                    <p:outputLabel value="Fournisseur:" for="fournisseurId" />
+                    <p:selectOneMenu id="fournisseurId" value="#{commandeItemController.selectedCommande.fournisseur}" >
+                        <f:selectItems value="#{fournisseurController.itemsAvailableSelectMany}"  var="fournisseurItem"  itemValue="#{fournisseurItem}"  itemLabel="#{fournisseurItem}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Montant Total" for="montantTotal" />
+                    <p:outputLabel id="montantTotal" value="#{commandeItemController.selectedCommande.montantTotal}"  />
+                </p:panelGrid><br></br>
+
+
+            </h:form>
+        </p:panel>
+
+        <p:panel>
+            <h:form>
+                <h3><h:outputText value="Create CommandeItem"/></h3>
+                <p:panelGrid  columns="4">
+
+                    <p:outputLabel value="Quantite:" for="quantite" />
+                    <p:inputText id="quantite" value="#{commandeItemController.selected.quantite}" title="Quantite" />
+
+                    <p:outputLabel value="Produit:" for="produit" />
+                    <p:selectOneMenu id="produit" value="#{commandeItemController.selected.produit}" >
+                        <f:selectItems value="#{produitController.itemsAvailableSelectOne}" var="pItem" itemValue="#{pItem}"  itemLabel="#{pItem}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton actionListener="#{commandeItemController.create()}" value="Ajouter" update="datalist, :CommandeForm" />
+                </p:panelGrid>
+
+                <h3><h:outputText value="List CommandeItem"/></h3>
+                <h1><h:outputText value="List"/></h1>
+                <p:dataTable id="datalist" value="#{commandeItemController.commandeItems}" var="item">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="libelle"/>
+                        </f:facet>
+                        <h:outputText value="#{item.produit.libelle}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="prix"/>
+                        </f:facet>
+                        <h:outputText value="#{item.produit.prix}"/>
+                        
+                        <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantite"/>
+                        </f:facet>
+                        <h:outputText value="#{item.quantite}"/>
+                    </p:column>
+                        
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Totale Unitaire"/>
+                        </f:facet>
+                        <h:outputText value="#{item.totale}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+            </h:form>
+
+
+        </p:panel><br></br>
+        <p:commandButton action="#{commandeItemController.save()}" icon="ui-plus-bars" value="validé les commandes"/>
+    </h:body>
+</html>
+

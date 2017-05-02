@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MagasinViewDlg" widgetVar="MagasinViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMagasinTitle}">
+            <h:form id="MagasinViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{magasinController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMagasinLabel_id}"/>
+                        <h:outputText value="#{magasinController.selected.id}" title="#{bundle.ViewMagasinTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewMagasinLabel_libelle}"/>
+                        <h:outputText value="#{magasinController.selected.libelle}" title="#{bundle.ViewMagasinTitle_libelle}"/>
+                        <h:outputText value="#{bundle.ViewMagasinLabel_adresse}"/>
+                        <h:outputText value="#{magasinController.selected.adresse}" title="#{bundle.ViewMagasinTitle_adresse}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MagasinViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

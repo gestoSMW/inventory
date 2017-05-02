@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SortieItemEditDlg" widgetVar="SortieItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSortieItemTitle}">
+            <h:form id="SortieItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{sortieItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSortieItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{sortieItemController.selected.produit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSortieItemLabel_quantite}" for="quantite" />
+                        <p:inputText id="quantite" value="#{sortieItemController.selected.quantite}" title="#{bundle.EditSortieItemTitle_quantite}" />
+                        <p:outputLabel value="#{bundle.EditSortieItemLabel_sortie}" for="sortie" />
+                        <p:selectOneMenu id="sortie" value="#{sortieItemController.selected.sortie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sortieController.itemsAvailableSelectOne}"
+                                           var="sortieItem"
+                                           itemValue="#{sortieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSortieItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{sortieItemController.selected.id}" title="#{bundle.EditSortieItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sortieItemController.update}" value="#{bundle.Save}" update="display,:SortieItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SortieItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SortieItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLivraisonTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="LivraisonCreateForm">
+                <div class="ui-grid  ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <p:panel header="livraison" class="ui-grid-col-6  menu">
+                            <div class="ui-grid-row">
+                                <p:selectOneMenu id="commande" value="#{livraisonItemController.selectedCommandeItem}" class="ui-grid-col-6">
+                                    <f:selectItems value="#{commandeController.itemsAvailableSelectMany}"
+                                                   var="item"
+                                                   itemValue="#{item}" />
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="ui-grid-row">
+                                <p:calendar class="ui-grid-col-6" id="dateCommande" pattern="MM/dd/yyyy" value="#{livraisonController.selected.dateLivraison}"/>
+                            </div>
+                        </p:panel>
+                    </div>
+
+                    <div class="ui-grid-row">
+                        <p:panel header="liste" class="ui-grid-col-6">
+                            <div class="ui-grid-col-7">
+                                <p:dataTable id="lista" class="ui-grid-col-11" var="item" value="#{livraisonItemController.commandeItems}"
+                                             rowKey="#{item.id}" selection="#{livraisonItemController.selectedCommandeItem}"
+                                             selectionMode="single"
+                                             scrollable="true" scrollHeight="150"> 
+
+                                    <p:column headerText="produit">#{item.produit.libelle}</p:column>
+                                    <p:column headerText="quantite">#{item.quantite}</p:column>
+                                    <p:column headerText="Q.livree">#{item.quantiteLivree}</p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="ui-grid-col-5">
+                                <div class="ui-grid-row">
+                                    <p:outputLabel for="test" value="quantite" class="ui-grid-col-3" />
+                                    <p:inputText id="test" class="ui-grid-col-9"/>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <p:outputLabel for="magasin" value="magasin" class="ui-grid-col-3" />
+                                    <p:selectOneMenu id="magasin" value="#{livraisonItemController.selected.magasin}" class="ui-grid-col-9">
+                                        <f:selectItems value="#{magasinController.itemsAvailableSelectMany}"
+                                                       var="item"
+                                                       itemValue="#{item}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <p:commandButton value="add" class="ui-grid-col-12"/>
+                                </div>
+                            </div>
+                        </p:panel>
+
+                    </div>
+
+                </div>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

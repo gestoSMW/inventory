@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LivraisonItemCreateDlg" widgetVar="LivraisonItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLivraisonItemTitle}">
+            <h:form id="LivraisonItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{livraisonItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLivraisonItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{livraisonItemController.selected.id}" title="#{bundle.CreateLivraisonItemTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateLivraisonItemLabel_livraison}" for="livraison" />
+                        <p:selectOneMenu id="livraison" value="#{livraisonItemController.selected.livraison}" >
+                            <f:selectItems value="#{livraisonController.itemsAvailableSelectOne}"
+                                           var="livraisonItem"
+                                           itemValue="#{livraisonItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLivraisonItemLabel_produit}" for="produit" />
+                        <p:selectOneMenu id="produit" value="#{livraisonItemController.selected.produit}" >
+                            <f:selectItems value="#{produitController.itemsAvailableSelectOne}"
+                                           var="produitItem"
+                                           itemValue="#{produitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLivraisonItemLabel_dateLivraisonItem}" for="dateLivraisonItem" />
+                        <p:calendar id="dateLivraisonItem" pattern="MM/dd/yyyy" value="#{livraisonItemController.selected.dateLivraisonItem}" title="#{bundle.EditLivraisonItemTitle_dateLivraisonItem}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateLivraisonItemLabel_quantite}" for="quantite" />
+                        <p:inputText id="quantite" value="#{livraisonItemController.selected.quantite}" title="#{bundle.CreateLivraisonItemTitle_quantite}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{livraisonItemController.create}" value="#{bundle.Save}" update="display,:LivraisonItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'LivraisonItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LivraisonItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

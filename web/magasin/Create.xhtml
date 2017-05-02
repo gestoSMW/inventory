@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MagasinCreateDlg" widgetVar="MagasinCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMagasinTitle}">
+            <h:form id="MagasinCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{magasinController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMagasinLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{magasinController.selected.id}" title="#{bundle.CreateMagasinTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateMagasinLabel_libelle}" for="libelle" />
+                        <p:inputText id="libelle" value="#{magasinController.selected.libelle}" title="#{bundle.CreateMagasinTitle_libelle}" />
+                        <p:outputLabel value="#{bundle.CreateMagasinLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{magasinController.selected.adresse}" title="#{bundle.CreateMagasinTitle_adresse}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{magasinController.create}" value="#{bundle.Save}" update="display,:MagasinListForm:datalist,:growl" oncomplete="handleSubmit(args,'MagasinCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MagasinCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
